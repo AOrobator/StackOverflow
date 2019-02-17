@@ -29,8 +29,8 @@ jobs:
       - run:
           name: Run tests
           command: |
-          ./gradlew :app:test
-          ./gradlew :stackoverflow-client:test
+            ./gradlew :app:test
+            ./gradlew :stackoverflow-client:test
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/reports
           destination: reports
