@@ -15,7 +15,14 @@ ext.deps = [
         ],
     ],
     junit: 'junit:junit:4.12',
-    kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+    kotlin: [
+        gradlePlugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+        stdlib: [
+            common: "org.jetbrains.kotlin:kotlin-stdlib-common:${versions.kotlin}",
+            jdk: "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+        ],
+        reflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+    ],
     square: [
         okhttp: [
             loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${versions.okhttp3}",
@@ -27,6 +34,7 @@ ext.deps = [
             rxAdapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
         ]
     ],
+    kluent: 'org.amshove.kluent:kluent:1.47',
     rxjava: 'io.reactivex.rxjava2:rxjava:2.2.6',
     testInstrumentationRunner: 'androidx.test.runner.AndroidJUnitRunner'
 ]

@@ -1,1 +1,3 @@
-include ':app', ':stackoverflow-client'
+include ':app',
+        ':mock-web-server-assertions',
+        ':stackoverflow-client'

@@ -1,13 +1,13 @@
 package com.orobator.stackoverflow.client.questions;
 
 import io.reactivex.Single;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface QuestionsApi {
     String STACK_OVERFLOW_SITE = "stackoverflow";
 
-    @POST("v2.2/questions")
+    @GET("v2.2/questions")
     Single<QuestionsResponse> getQuestions(
             @Query("page") int page,
             @Query("pagesize") int pageSize,

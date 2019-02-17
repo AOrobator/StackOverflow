@@ -5,6 +5,9 @@ import com.orobator.stackoverflow.client.`completed with single value`
 import com.orobator.stackoverflow.client.models.User
 import com.orobator.stackoverflow.client.questions.QuestionsApi.Order.DESC
 import com.orobator.stackoverflow.client.questions.QuestionsApi.Sort
+import com.smartthings.mockwebserverassertions.ExpectedRequest
+import com.smartthings.mockwebserverassertions.HttpMethod.GET
+import com.smartthings.mockwebserverassertions.`received request`
 import io.reactivex.observers.TestObserver
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -123,6 +126,14 @@ class QuestionsApiUnitTest {
             true,
             10000,
             9995
+        )
+
+        mockWebServer `received request` ExpectedRequest(
+            authorization = null,
+            method = GET,
+            contentType = null,
+            path = "/v2.2/questions?page=1&pagesize=3&order=desc&sort=hot&site=stackoverflow",
+            body = ""
         )
     }
 }

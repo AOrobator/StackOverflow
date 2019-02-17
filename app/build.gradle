@@ -25,7 +25,9 @@ android {
 }
 
 dependencies {
-  implementation deps.kotlinStdLib
+  implementation project(':stackoverflow-client')
+
+  implementation deps.kotlin.stdlib.jdk
   implementation deps.androidx.appcompat
   implementation deps.androidx.constraintLayout
   implementation deps.androidx.material
