@@ -27,11 +27,9 @@ jobs:
           name: Run tests
           command: ./gradlew test
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          paths:
-            - app/build/reports
-            - stackoverflow-client/build/reports
+          path: app/build/reports
           destination: reports
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+      - type: test-results-store # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           paths:
             - app/build/test-results
             - stackoverflow-client/build/test-results
