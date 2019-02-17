@@ -132,7 +132,7 @@ class QuestionsApiUnitTest {
             authorization = null,
             method = GET,
             contentType = null,
-            path = "/v2.2/questions?page=1&pagesize=3&order=desc&sort=hot&site=stackoverflow",
+            path = "/2.2/questions?page=1&pagesize=3&order=desc&sort=hot&site=stackoverflow",
             body = ""
         )
     }

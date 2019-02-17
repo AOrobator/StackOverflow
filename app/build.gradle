@@ -16,11 +16,19 @@ android {
     testInstrumentationRunner deps.testInstrumentationRunner
   }
 
+  dataBinding {
+    enabled = true
+  }
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+  }
+  compileOptions {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
   }
 }
 
@@ -31,6 +39,21 @@ dependencies {
   implementation deps.androidx.appcompat
   implementation deps.androidx.constraintLayout
   implementation deps.androidx.material
+  implementation deps.androidx.viewModel
+  implementation deps.androidx.lifecycleExtensions
+
+  implementation deps.dagger.core
+  annotationProcessor deps.dagger.annotationProcessor
+  implementation deps.dagger.android
+  annotationProcessor deps.dagger.androidAnnotationProcessor
+
+  implementation deps.square.okhttp.loggingInterceptor
+  implementation deps.square.retrofit.core
+  implementation deps.square.retrofit.gsonAdapter
+  implementation deps.square.retrofit.rxAdapter
+
+  implementation deps.rx.android
+
   testImplementation deps.junit
   androidTestImplementation deps.androidx.test.runner
   androidTestImplementation deps.androidx.test.espresso

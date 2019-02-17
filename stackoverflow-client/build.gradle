@@ -28,14 +28,13 @@ android {
 }
 
 dependencies {
-  implementation deps.square.okhttp.mockWebServer
   implementation deps.square.okhttp.loggingInterceptor
 
   implementation deps.square.retrofit.core
   implementation deps.square.retrofit.gsonAdapter
   implementation deps.square.retrofit.rxAdapter
 
-  api deps.rxjava
+  api deps.rx.java
 
   testImplementation deps.junit
   testImplementation project(':mock-web-server-assertions')

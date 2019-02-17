@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 public interface QuestionsApi {
     String STACK_OVERFLOW_SITE = "stackoverflow";
 
-    @GET("v2.2/questions")
+    @GET("2.2/questions")
     Single<QuestionsResponse> getQuestions(
             @Query("page") int page,
             @Query("pagesize") int pageSize,
