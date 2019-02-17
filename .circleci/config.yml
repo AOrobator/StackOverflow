@@ -30,7 +30,7 @@ jobs:
           path: app/build/reports
           destination: reports
       - type: test-results-store # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          paths:
+        paths:
             - app/build/test-results
             - stackoverflow-client/build/test-results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
