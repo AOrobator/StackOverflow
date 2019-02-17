@@ -55,6 +55,10 @@ dependencies {
   implementation deps.rx.android
 
   testImplementation deps.junit
+  testImplementation deps.mockitoKotlin
+  testImplementation deps.kluent
+  testImplementation deps.androidx.test.core
+
   androidTestImplementation deps.androidx.test.runner
   androidTestImplementation deps.androidx.test.espresso
 }

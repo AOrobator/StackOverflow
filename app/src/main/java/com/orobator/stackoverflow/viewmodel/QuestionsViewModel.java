@@ -22,6 +22,7 @@ public class QuestionsViewModel extends ViewModel {
   public QuestionsViewModel(QuestionsUseCases useCases, AppSchedulers schedulers) {
     this.useCases = useCases;
     this.schedulers = schedulers;
+    viewState.set(new QuestionsViewState(false, true, false));
   }
 
   @Override protected void onCleared() {
@@ -37,18 +38,18 @@ public class QuestionsViewModel extends ViewModel {
     disposable = useCases.getHotQuestions()
         .subscribeOn(schedulers.io)
         .observeOn(schedulers.main)
-        .doOnSubscribe(disposable -> viewState.set(new QuestionsViewState(true, false)))
+        .doOnSubscribe(disposable -> viewState.set(new QuestionsViewState(true, false, false)))
         .subscribe(
             this::onGetQuestionsSuccess,
             this::onGetQuestionsError);
   }
 
   private void onGetQuestionsSuccess(List<QuestionViewModel> questions) {
-    viewState.set(new QuestionsViewState(false, false));
+    viewState.set(new QuestionsViewState(false, false, false));
     questionViewModels.setValue(questions);
   }
 
   private void onGetQuestionsError(Throwable throwable) {
-    viewState.set(new QuestionsViewState(false, true));
+    viewState.set(new QuestionsViewState(false, false, true));
   }
 }

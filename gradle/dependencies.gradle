@@ -13,6 +13,7 @@ ext.deps = [
         viewModel: "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
         material: 'com.google.android.material:material:1.0.0',
         test: [
+            core: 'android.arch.core:core-testing:1.1.1',
             espresso: 'androidx.test.espresso:espresso-core:3.1.2-alpha01',
             runner: 'androidx.test:runner:1.1.2-alpha01'
         ],
@@ -48,6 +49,7 @@ ext.deps = [
     ],
     junit: 'junit:junit:4.12',
     kluent: 'org.amshove.kluent:kluent:1.47',
+    mockitoKotlin: 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0',
     rxjava: 'io.reactivex.rxjava2:rxjava:2.2.6',
     testInstrumentationRunner: 'androidx.test.runner.AndroidJUnitRunner'
 ]

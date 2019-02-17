@@ -2,5 +2,5 @@ apply from: rootProject.file('gradle/kotlin-lib.gradle')
 
 dependencies {
   api deps.square.okhttp.mockWebServer
-  implementation deps.kluent
+  api deps.kluent
 }
