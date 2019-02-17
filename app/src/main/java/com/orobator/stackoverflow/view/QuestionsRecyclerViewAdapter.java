@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.chip.Chip;
 import com.orobator.stackoverflow.R;
 import com.orobator.stackoverflow.databinding.ListItemQuestionBinding;
 import com.orobator.stackoverflow.viewmodel.QuestionViewModel;
@@ -25,7 +26,7 @@ public class QuestionsRecyclerViewAdapter extends RecyclerView.Adapter<QuestionV
   }
 
   @Override public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
-    holder.binding.setVm(viewModels.get(position));
+    holder.bind(viewModels.get(position));
   }
 
   @Override public int getItemCount() {
@@ -44,6 +45,18 @@ public class QuestionsRecyclerViewAdapter extends RecyclerView.Adapter<QuestionV
       super(binding.getRoot());
 
       this.binding = binding;
+    }
+
+    public void bind(QuestionViewModel viewModel) {
+      binding.setVm(viewModel);
+
+      binding.chipGroup.removeAllViews();
+      for (String tag : viewModel.tags) {
+        Chip chip = new Chip(itemView.getContext());
+        chip.setText(tag);
+        chip.setChipBackgroundColorResource(R.color.orange_100);
+        binding.chipGroup.addView(chip);
+      }
     }
   }
 }

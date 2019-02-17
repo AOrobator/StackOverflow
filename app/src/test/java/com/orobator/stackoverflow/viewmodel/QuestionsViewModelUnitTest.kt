@@ -49,7 +49,7 @@ class QuestionsViewModelUnitTest {
   fun `On successful load, questions are shown`() {
     val questionsUseCases = mock<QuestionsUseCases> {
       on { hotQuestions } doReturn Single.fromCallable {
-        listOf(QuestionViewModel("Code broken, pls help"))
+        listOf(QuestionViewModel("Code broken, pls help", -1, listOf("code")))
       }
     }
 
@@ -61,7 +61,9 @@ class QuestionsViewModelUnitTest {
     viewModel.viewState.get() `should equal` QuestionsViewState(false, false, false)
     val observer = mock<Observer<in MutableList<QuestionViewModel>>>()
     viewModel.questionViewModels.observeForever(observer)
-    verify(observer).onChanged(mutableListOf(QuestionViewModel("Code broken, pls help")))
+    verify(observer).onChanged(
+        mutableListOf(QuestionViewModel("Code broken, pls help", -1, listOf("code")))
+    )
   }
 
   @Test
