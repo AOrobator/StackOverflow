@@ -1,10 +1,11 @@
-package com.orobator.stackoverflow;
+package com.orobator.stackoverflow.view;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import com.orobator.stackoverflow.R;
 import com.orobator.stackoverflow.databinding.ActivityMainBinding;
 import com.orobator.stackoverflow.viewmodel.QuestionsViewModel;
 import com.orobator.stackoverflow.viewmodel.QuestionsViewModelFactory;
