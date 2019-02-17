@@ -1,6 +1,5 @@
 package com.orobator.stackoverflow.client.questions
 
-import com.orobator.stackoverflow.client.StackOverflowClient
 import com.orobator.stackoverflow.client.`completed with single value`
 import com.orobator.stackoverflow.client.models.User
 import com.orobator.stackoverflow.client.questions.QuestionsApi.Order.DESC
@@ -9,17 +8,21 @@ import com.smartthings.mockwebserverassertions.ExpectedRequest
 import com.smartthings.mockwebserverassertions.HttpMethod.GET
 import com.smartthings.mockwebserverassertions.`received request`
 import io.reactivex.observers.TestObserver
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class QuestionsApiUnitTest {
     private lateinit var mockWebServer: MockWebServer
     private lateinit var mockBaseUrl: String
-    private lateinit var client: StackOverflowClient
+    private lateinit var questionsDownloader: QuestionsDownloader
 
     @Before
     fun setup() {
@@ -31,10 +34,20 @@ class QuestionsApiUnitTest {
                 .url("/")
                 .toString()
 
-        client =
-            StackOverflowClient(mockBaseUrl, HttpLoggingInterceptor {
-                println(it)
-            }.setLevel(BODY))
+        val client = OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor { println(it) }.setLevel(BODY))
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(mockBaseUrl)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val questionsApi = retrofit.create(QuestionsApi::class.java)
+
+        questionsDownloader = QuestionsDownloader(questionsApi)
     }
 
     @After
@@ -47,7 +60,7 @@ class QuestionsApiUnitTest {
         mockWebServer.enqueue(successfulGetQuestionsResponse)
 
         val testObserver: TestObserver<QuestionsResponse> =
-            client
+            questionsDownloader
                 .getQuestions(1, 3, DESC, Sort.HOT)
                 .test()
 

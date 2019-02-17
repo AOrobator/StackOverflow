@@ -10,9 +10,6 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      #      - run:
-      #         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-      #         command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -28,12 +25,15 @@ jobs:
           command: ./gradlew lint
       - run:
           name: Run tests
-          command: |
-            ./gradlew :app:test
-            ./gradlew :stackoverflow-client:test
+          command: ./gradlew test
       - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: app/build/reports
           destination: reports
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+      - store_stackoverflow_client_artifacts:
+          path: stackoverflow-client/build/reports
+          destination: reports
+      - store_app_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: app/build/test-results
+      - store_stackoverflow_client_artifacts:
+          path: stackoverflow-client/build/test-results
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
