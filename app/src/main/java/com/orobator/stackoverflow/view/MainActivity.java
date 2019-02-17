@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
   QuestionsViewModelFactory viewModelFactory;
   private ActivityMainBinding binding;
   private QuestionsViewModel viewModel;
+  private QuestionsRecyclerViewAdapter adapter;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
     AndroidInjection.inject(this);
 
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    adapter = new QuestionsRecyclerViewAdapter();
+    binding.questionsRecyclerView.setAdapter(adapter);
 
     viewModel = ViewModelProviders.of(this, viewModelFactory).get(QuestionsViewModel.class);
+    viewModel.questionViewModels.observe(this, viewModels -> adapter.updateViewModels(viewModels));
     binding.setVm(viewModel);
   }
 

@@ -2,6 +2,7 @@ package com.orobator.stackoverflow.viewmodel;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.orobator.stackoverflow.interactors.QuestionsUseCases;
 import com.orobator.stackoverflow.rx.AppSchedulers;
@@ -15,6 +16,8 @@ public class QuestionsViewModel extends ViewModel {
   @Nullable
   private Disposable disposable;
   public final ObservableField<QuestionsViewState> viewState = new ObservableField<>();
+  public final MutableLiveData<List<QuestionViewModel>> questionViewModels =
+      new MutableLiveData<>();
 
   public QuestionsViewModel(QuestionsUseCases useCases, AppSchedulers schedulers) {
     this.useCases = useCases;
@@ -42,6 +45,7 @@ public class QuestionsViewModel extends ViewModel {
 
   private void onGetQuestionsSuccess(List<QuestionViewModel> questions) {
     viewState.set(new QuestionsViewState(false, false));
+    questionViewModels.setValue(questions);
   }
 
   private void onGetQuestionsError(Throwable throwable) {

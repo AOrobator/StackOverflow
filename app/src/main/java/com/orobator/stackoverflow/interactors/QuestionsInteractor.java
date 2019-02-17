@@ -28,7 +28,7 @@ public class QuestionsInteractor implements QuestionsUseCases {
     return repository
         .getQuestions(1, 10, Order.DESC, Sort.HOT)
         .map(QuestionsResponse::getItems)
-        .map(questions -> map(questions, question -> new QuestionViewModel()));
+        .map(questions -> map(questions, question -> new QuestionViewModel(question.getTitle())));
   }
 
   interface Mapper<A, B> {
