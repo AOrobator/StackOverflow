@@ -14,7 +14,7 @@ ext.deps = [
         viewModel: "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
         material: 'com.google.android.material:material:1.0.0',
         test: [
-            core: 'android.arch.core:core-testing:1.1.1',
+            core: 'androidx.arch.core:core-testing:2.0.0-rc01',
             espresso: 'androidx.test.espresso:espresso-core:3.1.2-alpha01',
             runner: 'androidx.test:runner:1.1.2-alpha01'
         ],
