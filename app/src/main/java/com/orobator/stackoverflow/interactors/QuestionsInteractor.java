@@ -6,14 +6,17 @@ import com.orobator.stackoverflow.client.questions.QuestionsRepository;
 import com.orobator.stackoverflow.client.questions.QuestionsResponse;
 import com.orobator.stackoverflow.viewmodel.QuestionViewModel;
 import io.reactivex.Single;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionsInteractor implements QuestionsUseCases {
   private QuestionsRepository repository;
+  private HtmlParser parser;
 
-  public QuestionsInteractor(QuestionsRepository repository) {
+  public QuestionsInteractor(QuestionsRepository repository, HtmlParser parser) {
     this.repository = repository;
+    this.parser = parser;
   }
 
   private static <T, R> List<R> map(List<T> list, Mapper<T, R> mapper) {
@@ -29,11 +32,17 @@ public class QuestionsInteractor implements QuestionsUseCases {
         .getQuestions(1, 10, Order.DESC, Sort.HOT)
         .map(QuestionsResponse::getItems)
         .map(questions -> map(questions,
-            question -> new QuestionViewModel(question.getTitle(), question.getScore(),
-                question.getTags())));
+                question -> new QuestionViewModel(
+                        parser.parse(question.getTitle()),
+                        question.getScore(),
+                        question.getTags())));
   }
 
   interface Mapper<A, B> {
     B map(A a);
+  }
+
+  public interface HtmlParser {
+    String parse(String html);
   }
 }

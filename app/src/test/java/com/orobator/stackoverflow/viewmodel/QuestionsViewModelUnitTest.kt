@@ -2,11 +2,13 @@ package com.orobator.stackoverflow.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.*
+import com.orobator.stackoverflow.client.models.User
+import com.orobator.stackoverflow.client.questions.Question
+import com.orobator.stackoverflow.client.questions.QuestionsApi
+import com.orobator.stackoverflow.client.questions.QuestionsRepository
+import com.orobator.stackoverflow.client.questions.QuestionsResponse
+import com.orobator.stackoverflow.interactors.QuestionsInteractor
 import com.orobator.stackoverflow.interactors.QuestionsUseCases
 import com.orobator.stackoverflow.rx.AppSchedulers
 import com.orobator.stackoverflow.view.QuestionsViewState
@@ -47,11 +49,43 @@ class QuestionsViewModelUnitTest {
 
   @Test
   fun `On successful load, questions are shown`() {
-    val questionsUseCases = mock<QuestionsUseCases> {
-      on { hotQuestions } doReturn Single.fromCallable {
-        listOf(QuestionViewModel("Code broken, pls help", -1, listOf("code")))
+    val questionsRepository = mock<QuestionsRepository> {
+      on { getQuestions(1, 10, QuestionsApi.Order.DESC, QuestionsApi.Sort.HOT) } doReturn Single.fromCallable {
+        QuestionsResponse(
+          mutableListOf(
+            Question(
+              listOf("c", "pointers", "struct"),
+              User(
+                20,
+                5101709,
+                "registered",
+                null,
+                "https://i.stack.imgur.com/fkAgH.png?s=128&g=1",
+                "Shwig",
+                "https://stackoverflow.com/users/5101709/shwig"
+              ),
+              true,
+              16,
+              2,
+              54729040,
+              2,
+              1550364803,
+              1550363442,
+              1550364803,
+              54729015,
+              "https://stackoverflow.com/questions/54729015/is-it-bad-practice-to-store-a-struct-member-value-in-local-var-with-a-shorter-na",
+              "Code broken, pls help"
+            )
+          ),
+          true,
+          1000,
+          1000
+        )
       }
     }
+
+    val questionsUseCases = QuestionsInteractor(questionsRepository, QuestionsInteractor.HtmlParser { it })
+
 
     viewModel = QuestionsViewModel(questionsUseCases, schedulers)
     viewModel.loadQuestions()
@@ -62,7 +96,7 @@ class QuestionsViewModelUnitTest {
     val observer = mock<Observer<in MutableList<QuestionViewModel>>>()
     viewModel.questionViewModels.observeForever(observer)
     verify(observer).onChanged(
-        mutableListOf(QuestionViewModel("Code broken, pls help", -1, listOf("code")))
+      mutableListOf(QuestionViewModel("Code broken, pls help", 2, listOf("c", "pointers", "struct")))
     )
   }
 

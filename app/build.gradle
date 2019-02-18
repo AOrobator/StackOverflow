@@ -38,6 +38,7 @@ dependencies {
   implementation deps.kotlin.stdlib.jdk
   implementation deps.androidx.appcompat
   implementation deps.androidx.constraintLayout
+  implementation deps.androidx.core
   implementation deps.androidx.material
   implementation deps.androidx.viewModel
   implementation deps.androidx.lifecycleExtensions

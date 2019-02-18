@@ -1,6 +1,7 @@
 package com.orobator.stackoverflow.di;
 
 import android.util.Log;
+import androidx.core.text.HtmlCompat;
 import com.orobator.stackoverflow.client.questions.QuestionsApi;
 import com.orobator.stackoverflow.client.questions.QuestionsDownloader;
 import com.orobator.stackoverflow.client.questions.QuestionsRepository;
@@ -12,12 +13,13 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import javax.inject.Singleton;
 
 @Module
 public class AppModule {
@@ -60,7 +62,9 @@ public class AppModule {
 
   @Provides
   public QuestionsUseCases provideQuestionsUseCases(QuestionsRepository repository) {
-    return new QuestionsInteractor(repository);
+    return new QuestionsInteractor(
+            repository,
+            s -> HtmlCompat.fromHtml(s, HtmlCompat.FROM_HTML_MODE_LEGACY).toString());
   }
 
   @Provides
