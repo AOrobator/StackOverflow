@@ -86,7 +86,6 @@ class QuestionsViewModelUnitTest {
 
     val questionsUseCases = QuestionsInteractor(questionsRepository, QuestionsInteractor.HtmlParser { it })
 
-
     viewModel = QuestionsViewModel(questionsUseCases, schedulers)
     viewModel.loadQuestions()
 
