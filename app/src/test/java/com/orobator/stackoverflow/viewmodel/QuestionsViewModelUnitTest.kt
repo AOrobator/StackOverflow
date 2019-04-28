@@ -38,7 +38,7 @@ class QuestionsViewModelUnitTest {
   @Test
   fun `When load starts, view is in loading state`() {
     val questionsUseCases = mock<QuestionsUseCases> {
-      on { hotQuestions } doReturn Single.create { listOf<QuestionViewModel>() }
+        on { getHotQuestions(page = any(), pageSize = any()) } doReturn Single.create { listOf<QuestionViewModel>() }
     }
 
     viewModel = QuestionsViewModel(questionsUseCases, schedulers)
@@ -102,7 +102,7 @@ class QuestionsViewModelUnitTest {
   @Test
   fun `On loading error, error view shown`() {
     val questionsUseCases = mock<QuestionsUseCases> {
-      on { hotQuestions } doReturn Single.error(Throwable())
+        on { getHotQuestions(page = any(), pageSize = any()) } doReturn Single.error(Throwable())
     }
 
     viewModel = QuestionsViewModel(questionsUseCases, schedulers)
