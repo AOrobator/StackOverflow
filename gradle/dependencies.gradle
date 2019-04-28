@@ -1,6 +1,6 @@
 ext.versions = [
     dagger: '2.21',
-    kotlin: '1.3.21',
+    kotlin: '1.3.31',
     paging: '2.1.0',
     retrofit: '2.5.0',
     okhttp3: '3.13.1',
