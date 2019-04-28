@@ -2,8 +2,12 @@ package com.orobator.stackoverflow.client.questions
 
 import com.orobator.stackoverflow.client.`completed with single value`
 import com.orobator.stackoverflow.client.models.User
-import com.orobator.stackoverflow.client.questions.QuestionsApi.Order.DESC
-import com.orobator.stackoverflow.client.questions.QuestionsApi.Sort
+import com.orobator.stackoverflow.client.questions.model.Question
+import com.orobator.stackoverflow.client.questions.model.QuestionsResponse
+import com.orobator.stackoverflow.client.questions.repository.QuestionsApi
+import com.orobator.stackoverflow.client.questions.repository.QuestionsApi.Order.DESC
+import com.orobator.stackoverflow.client.questions.repository.QuestionsApi.Sort
+import com.orobator.stackoverflow.client.questions.repository.QuestionsDownloader
 import com.smartthings.mockwebserverassertions.ExpectedRequest
 import com.smartthings.mockwebserverassertions.HttpMethod.GET
 import com.smartthings.mockwebserverassertions.`received request`
@@ -45,9 +49,12 @@ class QuestionsApiUnitTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val questionsApi = retrofit.create(QuestionsApi::class.java)
+        val questionsApi = retrofit.create(
+            QuestionsApi::class.java
+        )
 
-        questionsDownloader = QuestionsDownloader(questionsApi)
+        questionsDownloader =
+            QuestionsDownloader(questionsApi)
     }
 
     @After

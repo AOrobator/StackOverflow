@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
   <data>
     <variable
-        name="vm"
-        type="com.orobator.stackoverflow.viewmodel.QuestionViewModel"/>
+            name="q"
+            type="com.orobator.stackoverflow.view.QuestionView"/>
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,16 +35,16 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <TextView
-            android:id="@+id/vote_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.voteCount}"
-            app:layout_constraintBottom_toTopOf="@id/upvote_button"
-            app:layout_constraintEnd_toEndOf="@id/upvote_button"
-            app:layout_constraintStart_toStartOf="@id/upvote_button"
-            app:layout_constraintTop_toBottomOf="@id/upvote_button"
-            tools:text="26"
-            style="@style/TextAppearance.MaterialComponents.Body2"/>
+                android:id="@+id/vote_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{q.score}"
+                app:layout_constraintBottom_toTopOf="@id/upvote_button"
+                app:layout_constraintEnd_toEndOf="@id/upvote_button"
+                app:layout_constraintStart_toStartOf="@id/upvote_button"
+                app:layout_constraintTop_toBottomOf="@id/upvote_button"
+                tools:text="26"
+                style="@style/TextAppearance.MaterialComponents.Body2"/>
 
         <ImageButton
             android:id="@+id/downvote_button"
@@ -57,20 +57,20 @@
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{vm.title}"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toTopOf="@id/chip_scroll_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/vote_count"
-            app:layout_constraintVertical_chainStyle="packed"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            tools:text="My code broke, pls help"/>
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{q.title}"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toTopOf="@id/chip_scroll_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/vote_count"
+                app:layout_constraintVertical_chainStyle="packed"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="My code broke, pls help"/>
 
         <HorizontalScrollView
             android:id="@+id/chip_scroll_view"

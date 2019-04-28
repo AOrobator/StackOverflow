@@ -1,4 +1,4 @@
-package com.orobator.stackoverflow.client.questions;
+package com.orobator.stackoverflow.client.questions.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.orobator.stackoverflow.client.models.User;

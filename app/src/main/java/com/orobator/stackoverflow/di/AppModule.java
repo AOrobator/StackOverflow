@@ -2,9 +2,10 @@ package com.orobator.stackoverflow.di;
 
 import android.util.Log;
 import androidx.core.text.HtmlCompat;
-import com.orobator.stackoverflow.client.questions.QuestionsApi;
-import com.orobator.stackoverflow.client.questions.QuestionsDownloader;
-import com.orobator.stackoverflow.client.questions.QuestionsRepository;
+import com.orobator.stackoverflow.client.questions.repository.QuestionsApi;
+import com.orobator.stackoverflow.client.questions.repository.QuestionsDownloader;
+import com.orobator.stackoverflow.client.questions.repository.QuestionsRepository;
+import com.orobator.stackoverflow.interactors.QuestionsDataSourceFactory;
 import com.orobator.stackoverflow.interactors.QuestionsInteractor;
 import com.orobator.stackoverflow.interactors.QuestionsUseCases;
 import com.orobator.stackoverflow.rx.AppSchedulers;
@@ -59,6 +60,14 @@ public class AppModule {
   public QuestionsRepository provideQuestionsRepository(QuestionsApi questionsApi) {
     return new QuestionsDownloader(questionsApi);
   }
+
+    @Provides
+    public QuestionsDataSourceFactory provideQuestionsDataSourceFactory(
+            QuestionsRepository repository,
+            AppSchedulers schedulers
+    ) {
+        return new QuestionsDataSourceFactory(repository, schedulers);
+    }
 
   @Provides
   public QuestionsUseCases provideQuestionsUseCases(QuestionsRepository repository) {

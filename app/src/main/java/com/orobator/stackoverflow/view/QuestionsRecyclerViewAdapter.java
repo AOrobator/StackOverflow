@@ -9,6 +9,7 @@ import com.google.android.material.chip.Chip;
 import com.orobator.stackoverflow.R;
 import com.orobator.stackoverflow.databinding.ListItemQuestionBinding;
 import com.orobator.stackoverflow.viewmodel.QuestionViewModel;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class QuestionsRecyclerViewAdapter extends RecyclerView.Adapter<QuestionV
   }
 
   @Override public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
-    holder.bind(viewModels.get(position));
   }
 
   @Override public int getItemCount() {
@@ -47,11 +47,11 @@ public class QuestionsRecyclerViewAdapter extends RecyclerView.Adapter<QuestionV
       this.binding = binding;
     }
 
-    public void bind(QuestionViewModel viewModel) {
-      binding.setVm(viewModel);
+      public void bind(QuestionView question) {
+          binding.setQ(question);
 
       binding.chipGroup.removeAllViews();
-      for (String tag : viewModel.tags) {
+          for (String tag : question.tags) {
         Chip chip = new Chip(itemView.getContext());
         chip.setText(tag);
         chip.setChipBackgroundColorResource(R.color.orange_100);

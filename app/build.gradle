@@ -40,6 +40,8 @@ dependencies {
   implementation deps.androidx.constraintLayout
   implementation deps.androidx.core
   implementation deps.androidx.material
+  implementation deps.androidx.paging.core
+  implementation deps.androidx.paging.rx
   implementation deps.androidx.viewModel
   implementation deps.androidx.lifecycleExtensions
 

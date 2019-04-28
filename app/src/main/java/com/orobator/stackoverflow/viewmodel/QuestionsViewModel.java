@@ -8,6 +8,7 @@ import com.orobator.stackoverflow.interactors.QuestionsUseCases;
 import com.orobator.stackoverflow.rx.AppSchedulers;
 import com.orobator.stackoverflow.view.QuestionsViewState;
 import io.reactivex.disposables.Disposable;
+
 import java.util.List;
 
 public class QuestionsViewModel extends ViewModel {
@@ -35,7 +36,7 @@ public class QuestionsViewModel extends ViewModel {
   }
 
   public void loadQuestions() {
-    disposable = useCases.getHotQuestions()
+    disposable = useCases.getHotQuestions(1, 10)
         .subscribeOn(schedulers.io)
         .observeOn(schedulers.main)
         .doOnSubscribe(disposable -> viewState.set(new QuestionsViewState(true, false, false)))

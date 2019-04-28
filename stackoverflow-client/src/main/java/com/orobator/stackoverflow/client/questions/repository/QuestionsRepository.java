@@ -1,5 +1,6 @@
-package com.orobator.stackoverflow.client.questions;
+package com.orobator.stackoverflow.client.questions.repository;
 
+import com.orobator.stackoverflow.client.questions.model.QuestionsResponse;
 import io.reactivex.Single;
 
 public interface QuestionsRepository {
@@ -10,4 +11,6 @@ public interface QuestionsRepository {
       QuestionsApi.Order order,
       QuestionsApi.Sort sort
   );
+
+  Single<QuestionsResponse> getHotQuestions(int page, int pageSize);
 }

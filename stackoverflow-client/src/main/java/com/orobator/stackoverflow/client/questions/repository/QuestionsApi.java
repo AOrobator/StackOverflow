@@ -1,5 +1,6 @@
-package com.orobator.stackoverflow.client.questions;
+package com.orobator.stackoverflow.client.questions.repository;
 
+import com.orobator.stackoverflow.client.questions.model.QuestionsResponse;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

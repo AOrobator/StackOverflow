@@ -1,9 +1,9 @@
 package com.orobator.stackoverflow.interactors;
 
-import com.orobator.stackoverflow.client.questions.QuestionsApi.Order;
-import com.orobator.stackoverflow.client.questions.QuestionsApi.Sort;
-import com.orobator.stackoverflow.client.questions.QuestionsRepository;
-import com.orobator.stackoverflow.client.questions.QuestionsResponse;
+import com.orobator.stackoverflow.client.questions.model.QuestionsResponse;
+import com.orobator.stackoverflow.client.questions.repository.QuestionsApi.Order;
+import com.orobator.stackoverflow.client.questions.repository.QuestionsApi.Sort;
+import com.orobator.stackoverflow.client.questions.repository.QuestionsRepository;
 import com.orobator.stackoverflow.viewmodel.QuestionViewModel;
 import io.reactivex.Single;
 
@@ -19,7 +19,7 @@ public class QuestionsInteractor implements QuestionsUseCases {
     this.parser = parser;
   }
 
-  private static <T, R> List<R> map(List<T> list, Mapper<T, R> mapper) {
+    public static <T, R> List<R> mapList(List<T> list, Mapper<T, R> mapper) {
     ArrayList<R> mappedList = new ArrayList<>(list.size());
     for (T item : list) {
       mappedList.add(mapper.map(item));
@@ -27,11 +27,12 @@ public class QuestionsInteractor implements QuestionsUseCases {
     return mappedList;
   }
 
-  @Override public Single<List<QuestionViewModel>> getHotQuestions() {
+    @Override
+    public Single<List<QuestionViewModel>> getHotQuestions(int page, int pageSize) {
     return repository
-        .getQuestions(1, 10, Order.DESC, Sort.HOT)
+            .getQuestions(page, pageSize, Order.DESC, Sort.HOT)
         .map(QuestionsResponse::getItems)
-        .map(questions -> map(questions,
+            .map(questions -> mapList(questions,
                 question -> new QuestionViewModel(
                         parser.parse(question.getTitle()),
                         question.getScore(),
