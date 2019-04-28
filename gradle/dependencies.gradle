@@ -55,7 +55,8 @@ ext.deps = [
         retrofit: [
             gsonAdapter: "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
             core: "com.squareup.retrofit2:retrofit:${versions.retrofit}",
-            rxAdapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+            rxAdapter: "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+            coroutinesAdapter: "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
         ]
     ],
     junit: 'junit:junit:4.12',

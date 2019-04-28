@@ -36,6 +36,7 @@ dependencies {
   implementation deps.square.retrofit.core
   implementation deps.square.retrofit.gsonAdapter
   implementation deps.square.retrofit.rxAdapter
+  implementation deps.square.retrofit.coroutinesAdapter
 
   api deps.rx.java
 
